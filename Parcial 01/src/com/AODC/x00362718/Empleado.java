@@ -1,5 +1,6 @@
 package com.AODC.x00362718;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 abstract class Empleado {
@@ -40,6 +41,26 @@ abstract class Empleado {
 
         this.salario = salario;
     }
+    private String verDocumentos(){
+        String mess = "";
+
+        for(Documento m : documentos){
+            mess += m.toString() ;
+        }
+        return mess;
+    }
+    //toString
+    DecimalFormat formato1 = new DecimalFormat("0.00");
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "Nombre:'" + nombre + '\'' +
+                ", Puesto:'" + puesto + '\'' +
+                ", Documentos: " + verDocumentos() +
+                ", Salario: $" + formato1.format(salario) +
+                '}';
+    }
+
     //Metodos
     public void addDocumento(Documento d){
         documentos.add(d);

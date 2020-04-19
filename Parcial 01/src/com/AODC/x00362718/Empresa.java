@@ -27,11 +27,19 @@ public class Empresa {
     public void quitEmpleado(String nom){
         planilla.removeIf(obj -> obj.nombre.equalsIgnoreCase(nom));
     }
+    private String verEmpleados(){
+        String mess = "";
 
+        for(Empleado m : planilla){
+            mess += m.toString() + "\n";
+        }
+        return mess;
+    }
+    //To string
     @Override
     public String toString() {
-        return "Empresa{" +
-                "planilla=" + planilla +
+        return "\nEmpresa{" +
+                "Planilla:\n" + verEmpleados() +
                 '}';
     }
 }

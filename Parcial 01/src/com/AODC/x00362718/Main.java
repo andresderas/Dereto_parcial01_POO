@@ -40,7 +40,7 @@ public class Main {
                         nuevaEmpresa.addEmpleado(nuevoEmpleado);
                     }
                     else
-                        System.out.print("¡OPCION NO VALIDA!");
+                        System.out.print("¡OPCION NO VALIDA!\n");
                     break;
 
                 case 2:
@@ -50,9 +50,9 @@ public class Main {
 
                 case 3:
                     if(nuevaEmpresa.getPlanilla().isEmpty())
-                        System.out.print("\nNO HAY EMPLEADOS REGISTRADOS");
+                        System.out.print("\nNO HAY EMPLEADOS REGISTRADOS\n");
                     else
-                        nuevaEmpresa.toString();
+                        System.out.println(nuevaEmpresa.toString());
                     break;
 
                 case 4:
@@ -70,7 +70,7 @@ public class Main {
                             }
                         }
                         if (contador == 0)
-                            System.out.print("EMPLEADO NO ENCONTRADO");
+                            System.out.print("EMPLEADO NO ENCONTRADO\n");
                     }
                     break;
 
@@ -83,7 +83,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.print("¡OPCION INGRESADA NO VALIDA!");
+                    System.out.print("\n¡OPCION INGRESADA NO VALIDA!\n");
                     break;
             }
 
