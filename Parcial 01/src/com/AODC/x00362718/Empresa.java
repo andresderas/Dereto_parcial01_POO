@@ -27,4 +27,11 @@ public class Empresa {
     public void quitEmpleado(String nom){
         planilla.removeIf(obj -> obj.nombre.equalsIgnoreCase(nom));
     }
+
+    @Override
+    public String toString() {
+        return "Empresa{" +
+                "planilla=" + planilla +
+                '}';
+    }
 }
