@@ -17,29 +17,34 @@ abstract class Empleado {
     }
     //Getters
     public String getNombre() {
+
         return nombre;
     }
 
     public String getPuesto() {
+
         return puesto;
     }
 
     public ArrayList<Documento> getDocumentos() {
+
         return documentos;
     }
 
     public double getSalario() {
+
         return salario;
     }
     //Setters
     public void setSalario(double salario) {
+
         this.salario = salario;
     }
     //Metodos
-    public void addDocumento(){
-
+    public void addDocumento(Documento d){
+        documentos.add(d);
     }
-    public void removeDocumento(String){
-
+    public void removeDocumento(String nom){
+        documentos.removeIf(obj -> obj.getNombre().equalsIgnoreCase(nom));
     }
 }

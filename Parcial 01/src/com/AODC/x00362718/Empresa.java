@@ -21,9 +21,10 @@ public class Empresa {
     }
     //Metodos
     public void addEmpleado(Empleado empleado){
+        planilla.add(empleado);
     }
 
     public void quitEmpleado(String nom){
-
+        planilla.removeIf(obj -> obj.nombre.equalsIgnoreCase(nom));
     }
 }
