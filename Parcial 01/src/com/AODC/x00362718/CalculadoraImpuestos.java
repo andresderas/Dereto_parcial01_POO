@@ -7,15 +7,15 @@ public final class CalculadoraImpuestos {
     private static double totalAFP = 0;
     //Constructor privado
     private CalculadoraImpuestos() {}
-    //Metodos estaticos
 
+    //Metodos estaticos
     public static void mostrarTotales(){
         System.out.println("Total Renta: $" + totalRenta);
         System.out.println("Total ISSS: $" + totalISSS);
         System.out.println("Total AFP: $" + totalAFP);
     }
 
-    public double calcularPago(Empleado e){
+    public static double calcularPago(Empleado e){
         double renta = 0, afp, isss, restante, pago;
 
         if(e instanceof ServicioProfesional){
@@ -43,6 +43,7 @@ public final class CalculadoraImpuestos {
             }
             pago = restante - renta;
         }
+        return pago;
     }
 
 }

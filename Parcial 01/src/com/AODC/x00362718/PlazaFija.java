@@ -8,6 +8,12 @@ public class PlazaFija extends Empleado{
         super(nombre, puesto, salario);
         this.extension = extension;
     }
-    //Metodos
-
+    //Getter
+    public int getExtension() {
+        return extension;
+    }
+    //Setter
+    public void setExtension(int extension) {
+        this.extension = extension;
+    }
 }
