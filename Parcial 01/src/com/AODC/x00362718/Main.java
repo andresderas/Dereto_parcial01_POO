@@ -75,7 +75,7 @@ public class Main {
                     break;
 
                 case 5:
-                    CalculadoraImpuestos.mostrarTotales();
+                    System.out.println(CalculadoraImpuestos.mostrarTotales());
                     break;
 
                 case 0:

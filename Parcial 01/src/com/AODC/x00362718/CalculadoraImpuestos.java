@@ -9,10 +9,8 @@ public final class CalculadoraImpuestos {
     private CalculadoraImpuestos() {}
 
     //Metodos estaticos
-    public static void mostrarTotales(){
-        System.out.println("Total Renta: $" + totalRenta);
-        System.out.println("Total ISSS: $" + totalISSS);
-        System.out.println("Total AFP: $" + totalAFP);
+    public static String mostrarTotales(){
+        return "\nTotal Renta: $" + totalRenta + "\nTotal ISSS: $" + totalISSS + "\nTotal AFP: $" + totalAFP;
     }
 
     public static double calcularPago(Empleado e){
@@ -29,15 +27,15 @@ public final class CalculadoraImpuestos {
             totalISSS = totalISSS + isss;
             restante = e.salario - afp - isss;
 
-            if(restante>= 0.01 && restante<= 472.00){
+            if(e.salario>= 0.01 && e.salario<= 472.00){
                 renta = 0;
-            }else if(restante>= 472.01 && restante<= 895.24){
+            }else if(e.salario>= 472.01 && e.salario<= 895.24){
                 renta = 0.1*(restante - 472) + 17.67;
                 totalRenta = totalRenta + renta;
-            }else if(restante>= 895.25 && restante<= 2038.10){
+            }else if(e.salario>= 895.25 && e.salario<= 2038.10){
                 renta = 0.2*(restante - 895.24) + 60;
                 totalRenta = totalRenta + renta;
-            }else if(restante>= 2038.11){
+            }else if(e.salario>= 2038.11){
                 renta = 0.3*(restante - 2038.10) + 288.57;
                 totalRenta = totalRenta + renta;
             }
