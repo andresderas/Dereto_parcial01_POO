@@ -1,6 +1,7 @@
 package com.AODC.x00362718;
 
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -9,38 +10,63 @@ public class Main {
 
     public static void main(String[] args) {
         DecimalFormat formato1 = new DecimalFormat("0.00");
-        byte opc=0;
+        byte opc = 0;
         String empleado, puesto, tipo, empresa;
         double salario, pago;
         int extension, contrato, contador;
         System.out.print("\nIngrese el nombre de la empresa: "); empresa = in.nextLine();
         Empresa nuevaEmpresa = new Empresa(empresa);
         do{
-            System.out.println(mainMenu());
-            System.out.print("Opcion: "); opc = in.nextByte(); in.nextLine();
+            try {
+                System.out.println(mainMenu());
+                System.out.print("Opcion: ");
+                opc = in.nextByte();in.nextLine();
+            }
+            catch (InputMismatchException e){
+                System.out.print("\nPROBLEMA CON EL SCANNER");
+            }
             switch (opc){
                 case 1:
-                    System.out.print("\n¿Que tipo de empleado desea contratar? (plaza fija o servicio profesional): "); tipo = in.nextLine();
-                    if(tipo.equalsIgnoreCase("plaza fija")){
-                        System.out.print("\nIngrese el nombre del empleado: "); empleado = in.nextLine();
-                        System.out.print("Ingrese el puesto del empleado: "); puesto = in.nextLine();
-                        System.out.print("Ingrese el salario del empleado: "); salario = in.nextDouble(); in.nextLine();
-                        System.out.print("Ingrese el numero de extension del empleado: "); extension = in.nextInt(); in.nextLine();
-                        PlazaFija nuevoEmpleado = new PlazaFija(empleado,puesto,salario,extension);
-                        anadirDocumentos(nuevoEmpleado);
-                        nuevaEmpresa.addEmpleado(nuevoEmpleado);
+                    try {
+                        System.out.print("\n¿Que tipo de empleado desea contratar? (plaza fija o servicio profesional): ");
+                        tipo = in.nextLine();
+                        if (tipo.equalsIgnoreCase("plaza fija")) {
+                            System.out.print("\nIngrese el nombre del empleado: ");
+                            empleado = in.nextLine();
+                            System.out.print("Ingrese el puesto del empleado: ");
+                            puesto = in.nextLine();
+                            System.out.print("Ingrese el salario del empleado: ");
+                            salario = in.nextDouble();in.nextLine();
+                            if(salario <= 0)
+                                throw new InvalidSalaryAmountException("SALARIO INVALIDO\n");
+                            System.out.print("Ingrese el numero de extension del empleado: ");
+                            extension = in.nextInt(); in.nextLine();
+                            PlazaFija nuevoEmpleado = new PlazaFija(empleado, puesto, salario, extension);
+                            anadirDocumentos(nuevoEmpleado);
+                            nuevaEmpresa.addEmpleado(nuevoEmpleado);
+                        } else if (tipo.equalsIgnoreCase("servicio profesional")) {
+                            System.out.print("\nIngrese el nombre del empleado: ");
+                            empleado = in.nextLine();
+                            System.out.print("Ingrese el puesto del empleado: ");
+                            puesto = in.nextLine();
+                            System.out.print("Ingrese el salario del empleado: ");
+                            salario = in.nextDouble();in.nextLine();
+                            if(salario <= 0)
+                                throw new InvalidSalaryAmountException("SALARIO INVALIDO\n");
+                            System.out.print("Ingrese los meses de contrato del empleado: ");
+                            contrato = in.nextInt();in.nextLine();
+                            ServicioProfesional nuevoEmpleado = new ServicioProfesional(empleado, puesto, salario, contrato);
+                            anadirDocumentos(nuevoEmpleado);
+                            nuevaEmpresa.addEmpleado(nuevoEmpleado);
+                        } else
+                            System.out.print("¡OPCION NO VALIDA!\n");
                     }
-                    else if(tipo.equalsIgnoreCase("servicio profesional")){
-                        System.out.print("\nIngrese el nombre del empleado: "); empleado = in.nextLine();
-                        System.out.print("Ingrese el puesto del empleado: "); puesto = in.nextLine();
-                        System.out.print("Ingrese el salario del empleado: "); salario = in.nextDouble(); in.nextLine();
-                        System.out.print("Ingrese los meses de contrato del empleado: "); contrato = in.nextInt(); in.nextLine();
-                        ServicioProfesional nuevoEmpleado = new ServicioProfesional(empleado,puesto,salario,contrato);
-                        anadirDocumentos(nuevoEmpleado);
-                        nuevaEmpresa.addEmpleado(nuevoEmpleado);
+                    catch (InvalidSalaryAmountException ex){
+                        System.out.print(ex.getMessage());
                     }
-                    else
-                        System.out.print("¡OPCION NO VALIDA!\n");
+                    catch (InputMismatchException e){
+                        System.out.print("\nPROBLEMA CON EL SCANNER");
+                    }
                     break;
 
                 case 2:
@@ -54,11 +80,11 @@ public class Main {
                         }
 
                         if(quitEmpleado == null)
-                            throw new NotExistingEmployeeException("EMPLEADO NO ENCONTRADO");
+                            throw new NotExistingEmployeeException("EMPLEADO NO ENCONTRADO\n");
 
                         nuevaEmpresa.quitEmpleado(empleado);
                     }catch (NotExistingEmployeeException ex){
-                        System.out.println(ex.getMessage());
+                        System.out.print(ex.getMessage());
                     }
                     break;
 
@@ -70,7 +96,7 @@ public class Main {
                         System.out.println(nuevaEmpresa.toString());
 
                     }catch(NotExistingEmployeeException ex){
-                        System.out.println(ex.getMessage());
+                        System.out.print(ex.getMessage());
                     }
                     break;
 
@@ -90,10 +116,10 @@ public class Main {
                             }
                         }
                         if(pagarEmpleado == null)
-                            throw new NotExistingEmployeeException("EMPLEADO NO ENCONTRADO");
+                            throw new NotExistingEmployeeException("EMPLEADO NO ENCONTRADO\n");
 
                     }catch(NotExistingEmployeeException ex){
-                        System.out.println(ex.getMessage());
+                        System.out.print(ex.getMessage());
                     }
                     break;
 
