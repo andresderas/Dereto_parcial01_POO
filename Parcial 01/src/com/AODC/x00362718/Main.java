@@ -44,8 +44,22 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.print("\nIngrese el nombre del empleado que desea despedir: "); empleado = in.nextLine();
-                    nuevaEmpresa.quitEmpleado(empleado);
+                    try{
+                        Empleado quitEmpleado = null;
+                        System.out.print("\nIngrese el nombre del empleado que desea despedir: "); empleado = in.nextLine();
+
+                        for (Empleado e: nuevaEmpresa.getPlanilla()) {
+                            if(e.getNombre().equalsIgnoreCase(empleado))
+                                quitEmpleado = e;
+                        }
+
+                        if(quitEmpleado == null)
+                            throw new NotExistingEmployeeException("El empleado no existe");
+
+                        nuevaEmpresa.quitEmpleado(empleado);
+                    }catch (NotExistingEmployeeException ex){
+                        System.out.println(ex.getMessage());
+                    };
                     break;
 
                 case 3:
