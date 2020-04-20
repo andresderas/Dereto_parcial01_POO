@@ -13,7 +13,7 @@ public class Main {
         byte opc = 0;
         String empleado, puesto, tipo, empresa;
         double salario, pago;
-        int extension, contrato, contador;
+        int extension, contrato;
         System.out.print("\nIngrese el nombre de la empresa: "); empresa = in.nextLine();
         Empresa nuevaEmpresa = new Empresa(empresa);
         do{
@@ -24,6 +24,7 @@ public class Main {
             }
             catch (InputMismatchException e){
                 System.out.print("\nPROBLEMA CON EL SCANNER");
+                return;
             }
             switch (opc){
                 case 1:
@@ -66,6 +67,7 @@ public class Main {
                     }
                     catch (InputMismatchException e){
                         System.out.print("\nPROBLEMA CON EL SCANNER");
+                        return;
                     }
                     break;
 
