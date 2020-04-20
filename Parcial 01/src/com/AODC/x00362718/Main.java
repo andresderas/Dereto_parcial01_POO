@@ -54,37 +54,46 @@ public class Main {
                         }
 
                         if(quitEmpleado == null)
-                            throw new NotExistingEmployeeException("El empleado no existe");
+                            throw new NotExistingEmployeeException("EMPLEADO NO ENCONTRADO");
 
                         nuevaEmpresa.quitEmpleado(empleado);
                     }catch (NotExistingEmployeeException ex){
                         System.out.println(ex.getMessage());
-                    };
+                    }
                     break;
 
                 case 3:
-                    if(nuevaEmpresa.getPlanilla().isEmpty())
-                        System.out.print("\nNO HAY EMPLEADOS REGISTRADOS\n");
-                    else
+                    try{
+                        if(nuevaEmpresa.getPlanilla().isEmpty())
+                            throw new NotExistingEmployeeException("\nNO HAY EMPLEADOS REGISTRADOS\n");
+
                         System.out.println(nuevaEmpresa.toString());
+
+                    }catch(NotExistingEmployeeException ex){
+                        System.out.println(ex.getMessage());
+                    }
                     break;
 
                 case 4:
-                    System.out.print("\nIngrese el nombre del empleado: "); empleado = in.nextLine();
-                    contador = 0;
+                    try{
+                        if (nuevaEmpresa.getPlanilla().isEmpty())
+                            throw new NotExistingEmployeeException("\nNO HAY EMPLEADOS REGISTRADOS\n");
 
-                    if (nuevaEmpresa.getPlanilla().isEmpty())
-                        System.out.print("NO HAY EMPLEADOS REGISTRADOS\n");
-                    else {
-                        for (Empleado aux : nuevaEmpresa.getPlanilla()) {
-                            if (aux.getNombre().equalsIgnoreCase(empleado)) {
-                                pago=CalculadoraImpuestos.calcularPago(aux);
+                        Empleado pagarEmpleado = null;
+                        System.out.print("\nIngrese el nombre del empleado: "); empleado = in.nextLine();
+
+                        for (Empleado e: nuevaEmpresa.getPlanilla()) {
+                            if(e.getNombre().equalsIgnoreCase(empleado)) {
+                                pagarEmpleado = e;
+                                pago=CalculadoraImpuestos.calcularPago(e);
                                 System.out.print("Pago con descuentos: $" + formato1.format(pago) + "\n");
-                                contador++;
                             }
                         }
-                        if (contador == 0)
-                            System.out.print("EMPLEADO NO ENCONTRADO\n");
+                        if(pagarEmpleado == null)
+                            throw new NotExistingEmployeeException("EMPLEADO NO ENCONTRADO");
+
+                    }catch(NotExistingEmployeeException ex){
+                        System.out.println(ex.getMessage());
                     }
                     break;
 
